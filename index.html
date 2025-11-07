@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Professional E-Portfolio</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #333; animation: fadeIn 1s ease-in; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .navbar { background-color: rgba(0, 123, 255, 0.9); backdrop-filter: blur(10px); }
+        .hero { background: url('https://via.placeholder.com/1920x600?text=Portfolio+Background') no-repeat center/cover; padding: 100px 0; text-align: center; color: white; }
+        .profile-photo { width: 150px; height: 150px; border-radius: 50%; border: 5px solid white; box-shadow: 0 4px 8px rgba(0,0,0,0.2); transition: transform 0.3s; }
+        .profile-photo:hover { transform: scale(1.1); }
+        .section { margin: 40px 0; padding: 30px; background: white; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); transition: box-shadow 0.3s; }
+        .section:hover { box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
+        .btn-custom { transition: all 0.3s; }
+        .btn-custom:hover { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.3); }
+        .modal-body { max-height: 70vh; overflow-y: auto; }
+        .footer { background-color: #343a40; color: white; padding: 20px 0; text-align: center; }
+        .tooltip-inner { background-color: #007bff; }
+        .sidebar { display: none; position: fixed; top: 0; left: 0; width: 250px; height: 100%; background: #f8f9fa; padding: 20px; z-index: 1000; transition: transform 0.3s; }
+        .sidebar.show { display: block; transform: translateX(0); }
+        @media (max-width: 768px) { .sidebar { display: block; transform: translateX(-100%); } .sidebar.show { transform: translateX(0); } }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#hero"><i class="fas fa-portrait"></i> My E-Portfolio</a>
+            <button class="btn btn-outline-light d-lg-none" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#about">About Me</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#portfolio">Portfolio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sidebar for Mobile -->
+    <div class="sidebar" id="sidebar">
+        <button class="btn btn-close float-end" onclick="toggleSidebar()"></button>
+        <h5>Navigation</h5>
+        <ul class="list-group">
+            <li class="list-group-item"><a href="#about">About Me</a></li>
+            <li class="list-group-item"><a href="#portfolio">Portfolio</a></li>
+            <li class="list-group-item"><a href="#contact">Contact</a></li>
+        </ul>
+    </div>
+
+    <!-- Hero Section with Photo and Description -->
+    <section id="hero" class="hero">
+        <div class="container">
+            <img src="[Your Photo URL, e.g., https://via.placeholder.com/150]" alt="Profile Photo" class="profile-photo mb-3">
+            <h1>[Your Full Name]</h1>
+            <p class="lead">[Your Description/Bio, e.g., Passionate computer science student with expertise in lab-based learning and collaborative projects. Dedicated to innovation in AI and web development.]</p>
+            <a href="#portfolio" class="btn btn-light btn-lg">Explore My Work</a>
+        </div>
+    </section>
+
+    <!-- About Me Section -->
+    <section id="about" class="section container">
+        <h2 class="text-center mb-4"><i class="fas fa-user"></i> About Me</h2>
+        <div class="row">
+            <div class="col-md-4 text-center">
+                <img src="[Your Photo URL]" alt="Profile Photo" class="profile-photo">
+            </div>
+            <div class="col-md-8">
+                <p>[Detailed Description: Expand here with your background, skills, interests, and goals. For example: I am a dedicated learner with a strong foundation in programming and data science. Through hands-on labs, I've developed skills in Python, machine learning, and web development. My goal is to contribute to innovative tech solutions.]</p>
+                <p><strong>Key Skills:</strong> Python, JavaScript, Data Analysis, Team Collaboration</p>
+                <p><strong>Interests:</strong> AI, Cybersecurity, Open-Source Projects</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="section container">
+        <h2 class="text-center mb-4"><i class="fas fa-briefcase"></i> Portfolio</h2>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <button class="btn btn-primary btn-custom w-100" data-bs-toggle="modal" data-bs-target="#videoModal" data-bs-toggle="tooltip" title="Watch my intro video">
+                    <i class="fas fa-video"></i> Self Introduction Video
+                </button>
+            </div>
+            <div class="col-md-6 mb-3">
+                <button class="btn btn-success btn-custom w-100" data-bs-toggle="modal" data-bs-target="#learningsModal" data-bs-toggle="tooltip" title="View lab learnings">
+                    <i class="fas fa-book"></i> 50 Learnings from Labs
+                </button>
+            </div>
+            <div class="col-md-6 mb-3">
+                <button class="btn btn-warning btn-custom w-100" data-bs-toggle="modal" data-bs-target="#pptModal" data-bs-toggle="tooltip" title="See group presentation">
+                    <i class="fas fa-file-powerpoint"></i> Group PowerPoint Presentation
+                </button>
+            </div>
+            <div class="col-md-6 mb-3">
+                <button class="btn btn-info btn-custom w-100" data-bs-toggle="modal" data-bs-target="#linkedinModal" data-bs-toggle="tooltip" title="Check my LinkedIn">
+                    <i class="fab fa-linkedin"></i> LinkedIn Profile
+                </button>
+            </div>
+            <div class="col-md-12 mb-3">
+                <button class="btn btn-secondary btn-custom w-100" data-bs-toggle="modal" data-bs-target="#assignmentModal" data-bs-toggle="tooltip" title="View scanned assignment">
+                    <i class="fas fa-file-pdf"></i> Handwritten Assignment PDF
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modals (Same as before, with minor tweaks for professionalism) -->
+    <!-- Video Modal -->
+    <div class="modal fade" id="videoModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><i class="fas fa-video"></i> Self Introduction Video</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <iframe width="100%" height="315" src="https://www.youtube.com/embed/YOUR_VIDEO_ID" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Learnings Modal -->
+    <div class="modal fade" id="learningsModal" tabindex="-1">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><i class="fas fa-book"></i> 50 Learnings from Labs</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="accordion" id="learningsAccordion">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#lab1">Lab 1-10: Basic Programming</button>
+                            </h2>
+                            <div id="lab1" class="accordion-collapse collapse show" data-bs-parent="#learningsAccordion">
+                                <div class="accordion-body">
+                                    <ol>
+                                        <li>Learned variables and data types.</li>
+                                        <!-- Add full list -->
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Add more accordion items for other labs -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PPT Modal -->
+    <div class="modal fade" id="pptModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><i class="fas fa-file-powerpoint"></i> Group PowerPoint</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <iframe src="https://docs.google.com/presentation/d/YOUR_PPT_ID/embed" width="100%" height="400"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- LinkedIn Modal -->
+    <div class="modal fade" id="linkedinModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><i class="fab fa-linkedin"></i> LinkedIn Profile</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <a href="https://www.linkedin.com/in/your-profile" target="_blank" class="btn btn-primary">View Profile</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Assignment Modal -->
+    <div class="modal fade" id="assignmentModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><i class="fas fa-file-pdf"></i> Handwritten Assignment</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <iframe src="https://example.com/your-assignment.pdf" width="100%" height="500"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact/Footer Section -->
+    <section id="contact" class="footer">
+        <div class="container">
+            <h3>Contact Me</h3>
+            <p>Email: [your.email@example.com] | Phone: [Your Phone]</p>
+            <form id="feedbackForm">
+                <div class="mb-3">
+                    <input type="text" class="form-control" placeholder="Your Name" required>
+                </div>
+                <div class="mb-3">
+                    <textarea class="form-control" rows="3" placeholder="Your Feedback" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-light">Submit Feedback</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        // Tooltip initialization
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) { return new bootstrap.Tooltip(tooltipTriggerEl); });
+
+        // Sidebar toggle
+        function toggleSidebar() { document.getElementById('sidebar').classList.toggle('show'); }
+
+        // Feedback form
+        document.getElementById('feedbackForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your feedback!');
+            this.reset();
+        });
+    </script>
+</body>
+</html>
